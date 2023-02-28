@@ -1,18 +1,15 @@
-# info de la materia: STxxxx <nombre>
+# info de la materia: ST0263, Topicos especiales en Telematica
 #
-# Estudiante(s): nombre, email-eafit
+# Estudiante(s): Tomas Atehortua Ceferino, tatehortuc@eafit.edu.co
 #
-# Profesor: nombre, email-eafit
+# Profesor: Edwin Nelson Montoya Munera, emontoya@eafit.edu.co
 #
-# <para borrar: EL OBJETIVO DE ESTA DOCUMENTACÍON ES QUE CUALQUIER LECTOR CON EL REPO, EN ESPECIAL EL PROFESOR, ENTIENDA EL ALCANCE DE LO DESARROLLADO Y QUE PUEDA REPRODUCIR SIN EL ESTUDIANTE EL AMBIENTE DE DESARROLLO Y EJECUTAR Y USAR LA APLICACIÓN SIN PROBLEMAS>
 
-# <para borrar: renombre este archivo a README.md cuando lo vaya a usar en un caso específico>
-
-# nombre del proyecto, lab o actividad
+# MoM and gRPC lab
 #
 # 1. breve descripción de la actividad
 #
-<texto descriptivo>
+
 ## 1.1. Que aspectos cumplió o desarrolló de la actividad propuesta por el profesor (requerimientos funcionales y no funcionales)
 
 ## 1.2. Que aspectos NO cumplió o desarrolló de la actividad propuesta por el profesor (requerimientos funcionales y no funcionales)
@@ -43,8 +40,8 @@
 
 # 5. otra información que considere relevante para esta actividad.
 
-# referencias:
-<debemos siempre reconocer los créditos de partes del código que reutilizaremos, así como referencias a youtube, o referencias bibliográficas utilizadas para desarrollar el proyecto o la actividad>
+# Referencias:
+
 ## sitio1-url 
 ## sitio2-url
 ## url de donde tomo info para desarrollar este proyecto
