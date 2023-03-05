@@ -2,10 +2,22 @@ syntax = "proto3";
 
 message EmptyMessage{}
 
-message PingRecordResponse{
-    string ack = 1;
+message NameMessage{
+    string name = 1;
 }
 
-service Record {
-    rpc PingRecords(EmptyMessage) returns (PingRecordResponse);
+message ListFilesResponse{
+    repeated string files = 1;
+}
+
+message FindFileResponse{
+    bool found = 1;
+}
+
+service FilesService {
+    rpc ListFiles(EmptyMessage) returns (ListFilesResponse);
+}
+
+service FindFilesService {
+    rpc FindFiles(NameMessage) returns (FindFileResponse);
 }
