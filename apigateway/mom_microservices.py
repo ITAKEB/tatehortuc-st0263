@@ -35,7 +35,7 @@ def consume_mom_response(connection, request):
 
 
 def list(address, port):
-    conection_parameters = pika.ConnectionParameters('localhost')
+    conection_parameters = pika.ConnectionParameters(address)
     connection = pika.BlockingConnection(conection_parameters)
 
     request = {"type": "list", "id": str(uuid.uuid4())}
@@ -51,7 +51,7 @@ def list(address, port):
 
 
 def find(address, port, name):
-    conection_parameters = pika.ConnectionParameters('localhost')
+    conection_parameters = pika.ConnectionParameters(address)
     connection = pika.BlockingConnection(conection_parameters)
 
     request = {"type": "find", "name": str(name), "id": str(uuid.uuid4())}

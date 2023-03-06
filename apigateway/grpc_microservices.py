@@ -6,7 +6,7 @@ import records_pb2_grpc
 
 
 def list(grpc_address, port):
-    with grpc.insecure_channel('localhost:50051') as channel:
+    with grpc.insecure_channel(f"{grpc_address}:{port}") as channel:
         stub = records_pb2_grpc.FilesServiceStub(channel)
         request = records_pb2.EmptyMessage()
         result = stub.ListFiles(request)
@@ -15,7 +15,7 @@ def list(grpc_address, port):
 
 
 def find(grpc_address, port, name):
-    with grpc.insecure_channel('localhost:50051') as channel:
+    with grpc.insecure_channel(f"{grpc_address}:{port}") as channel:
         stub = records_pb2_grpc.FindFilesServiceStub(channel)
         print(f"name: {name}")
         request = records_pb2.NameMessage(name=name)

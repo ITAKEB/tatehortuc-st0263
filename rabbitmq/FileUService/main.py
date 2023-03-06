@@ -2,7 +2,9 @@ import pika
 import json
 from os import listdir
 
-DataPath = "../../data"
+config = json.loads(open("../../config.json").read())
+
+DataPath = config["dataPath"]
 
 
 def ls(route):
@@ -36,7 +38,7 @@ def on_request(ch, method, properties, body):
 
 
 def main():
-    conection_parameters = pika.ConnectionParameters('localhost')
+    conection_parameters = pika.ConnectionParameters(config["rabbitHost"])
     connection = pika.BlockingConnection(conection_parameters)
     channel = connection.channel()
 

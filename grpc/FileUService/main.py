@@ -1,11 +1,14 @@
 import grpc
 from os import listdir
 from concurrent import futures
-
+import json
 import records_pb2
 import records_pb2_grpc
 
-DataPath = "../../data"
+
+config = json.loads(open("../../config.json").read())
+
+DataPath = config["dataPath"]
 
 
 def ls(route):
@@ -44,7 +47,7 @@ def main():
     records_pb2_grpc.add_FindFilesServiceServicer_to_server(
         FindFileSystemServicer(), server)
 
-    server.add_insecure_port('[::]:50051')
+    server.add_insecure_port(f"{config['grpcHost']}:{config['grpcPort']}")
     server.start()
 
     print('GRPC persistor server working')

@@ -1,8 +1,15 @@
 from flask import Flask, jsonify
 from threading import Thread, Lock
+import json
 
 import grpc_microservices
 import mom_microservices
+
+config = json.loads(open("../config.json").read())
+momHost = config['rabbitHost']
+momPort = config['rabbitPort']
+grpcHost = config['grpcHost']
+grpcPort = config['grpcPort']
 
 app = Flask(__name__)
 mode_mutex = Lock()
@@ -16,14 +23,14 @@ def list_files():
     if app.config["GRPC_REQUEST"]:
         app.config["GRPC_REQUEST"] = False
         mode_mutex.release()
-        result = grpc_microservices.list("localhost", "50051")
+        result = grpc_microservices.list(grpcHost, grpcPort)
 
         response = {"content": str(result), "source": "grpc"}
     else:
         app.config["GRPC_REQUEST"] = True
         mode_mutex.release()
 
-        result = mom_microservices.list("localhost", "5058")
+        result = mom_microservices.list(momHost, momPort)
 
         response = {"content": str(result), "source": "mom"}
 
@@ -41,13 +48,13 @@ def find_file(name):
     if app.config["GRPC_REQUEST"]:
         app.config["GRPC_REQUEST"] = False
         mode_mutex.release()
-        result = grpc_microservices.find("localhost", "50051", name)
+        result = grpc_microservices.find(grpcHost, grpcPort, name)
         response = {"content": str(result), "source": "grpc"}
     else:
         app.config["GRPC_REQUEST"] = True
         mode_mutex.release()
 
-        result = mom_microservices.find("localhost", "5058", name)
+        result = mom_microservices.find(momHost, momPort, name)
 
         response = {"content": str(result), "source": "mom"}
 

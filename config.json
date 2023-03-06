@@ -1,0 +1,9 @@
+{
+    "host": "127.0.0.1",
+    "port": 8080,
+    "grpcHost": "127.0.0.1",
+    "grpcPort": 50051,
+    "rabbitHost": "127.0.0.1",
+    "rabbitPort": 5058,
+    "dataPath": "../../data"
+}
