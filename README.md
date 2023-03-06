@@ -104,9 +104,9 @@ Para ponerla en funcionamiento se clonó este repositorio en la instancia creada
 
 Ya con la aplicación funcionando fácilmente podemos acceder a la dirección pública de nuestra EC2 y consumir nuestros dos microservicios a través de esta.
 
-El servidor está en la capacidad de responder a las dos siguientes urls
-- `{public_ip_ec2}/files/list_files` para listar los archivos
-- `{public_ip_ec2}/files/find_file/{name_file}` para buscar archivos
+Es importante mencionar que el servidor solo está en la capacidad de responder a las dos siguientes URL:
+- `{public_ip_ec2:port}/files/list_files` para listar los archivos
+- `{public_ip_ec2:port}/files/find_file/{name_file}` para buscar archivos
 
 ## Referencias:
 Algunos sitios que me fueron de ayuda fueron:
