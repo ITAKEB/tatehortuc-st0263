@@ -5,7 +5,9 @@ import json
 import grpc_microservices
 import mom_microservices
 
-config = json.loads(open("../config.json").read())
+config = json.loads(open("./config.json").read())
+host = config['host']
+port = config['port']
 momHost = config['rabbitHost']
 momPort = config['rabbitPort']
 grpcHost = config['grpcHost']
@@ -63,7 +65,7 @@ def find_file(name):
 
 def main():
     app.config["GRPC_REQUEST"] = True
-    app.run(debug=True, port=8080)
+    app.run(debug=True, host=host, port=port)
 
 
 if __name__ == '__main__':

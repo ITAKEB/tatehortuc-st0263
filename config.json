@@ -4,6 +4,6 @@
     "grpcHost": "127.0.0.1",
     "grpcPort": 50051,
     "rabbitHost": "127.0.0.1",
-    "rabbitPort": 5058,
-    "dataPath": "../../data"
+    "rabbitPort": 5672,
+    "dataPath": "./data"
 }

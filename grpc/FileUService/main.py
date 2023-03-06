@@ -6,7 +6,7 @@ import records_pb2
 import records_pb2_grpc
 
 
-config = json.loads(open("../../config.json").read())
+config = json.loads(open("./config.json").read())
 
 DataPath = config["dataPath"]
 
