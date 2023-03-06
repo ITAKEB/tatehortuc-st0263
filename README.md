@@ -30,7 +30,7 @@ El archivo de configuracion si fue realizado, se hicieron pruebas en amazon aws 
 
 ## 2. información general de diseño de alto nivel, arquitectura, patrones, mejores prácticas utilizadas.
 La arquitectura implentada es la siguiente:
-![image](./architecture.png)
+![architecture](./utils/architecture.png)
 
 El servidor principal es una API REST con los servicios de list_files and find_files, este servidor balancea las peticiones a dos microservicios segun su middleware (MOM y GRPC). El balanceo se hizo mediande round-robin, es decir, una peticion ira al microservicio01 (MOM) y la siguiente al microservicio02 (GRPC) y asi sucesivamente.
 
@@ -43,13 +43,59 @@ En cuanto a buenas practicas se realizaron las siguientes:
 ## 3. Descripción del ambiente de desarrollo y técnico: lenguaje de programación, librerias, paquetes, etc, con sus numeros de versiones.
 El ambiente utilizado fue python, por lo que, para la API rest se utilizo Flask y para el middleware MOM, rabbitMQ. 
 
+**Dependencias y versionamiento**
+- Python: 3.10.6
+- RabbitMQ: 3.9.13
+- grpcio: 1.43.0
+- grpcio-tools: 1.43.0
+- pika: 1.3.1
+- flask: 2.2.3
+
 **Como se compila y ejecuta.**
+Se debe contar con python y rabbitmq instalado en la maquina. En caso de tenerlos, para el caso de `ubuntu` ejecutar lo siguiente: 
 
+Para rabbitmq:
+```
+sudo apt-get install rabbitmq-server
+sudo system ctl start rabbitmq-server
+sudo system ctl enable rabbitmq-server
+```
+Para python:
+```
+sudo apt update
+sudo apt install -y python3-pip
+```
 
-**Detalles del desarrollo.**
+Para ejecuar el servicio, como no se han desarrollado scripts de ejecucion, seguir los siguientes pasos:
 
+1. Creacion y activacion de ambiente para python:
+```
+python3 -m venv env
+source env/bin/activate
+```
+2. Instalar dependencias:
+```
+pip3 install -r requirements.txt
+```
+3. Ejecutar los servicios. 
 
-**Detalles técnicos**
+Iniciaremos con el MOM. Para ellos vamos a `rabbitmq/FileUService` y encendemos el microservicio con el comando:
+```
+python3 main.py
+```
+y lo dejamos corriendo.
+
+Para el servidor de GRPC es similar. Para ello vamos a `grpc/FileUService` y encendemos el microservicio con el comando:
+```
+python3 main.py
+```
+tambien lo dejamos encendido.
+
+Finalmente para encender la API geteway, en la ruta `apigateway/` ejecutamos:
+```
+python3 app.py
+```
+Y ya tendriamos nuestro servidor corriendo con sus respectivos microservicios listos para ser consumidos.
 
 **Descripción y como se configuracion**
  los parámetros del proyecto (ej: ip, puertos, conexión a bases de datos, variables de ambiente, parámetros, etc)
@@ -58,7 +104,14 @@ El ambiente utilizado fue python, por lo que, para la API rest se utilizo Flask 
  o descripción de algún archivo. (ESTRUCTURA DE DIRECTORIOS Y ARCHIVOS IMPORTANTE DEL PROYECTO, comando 'tree' de linux)
  
 **Resultados**
-pantallazos 
+A continuacion podemos observar los dos servicios funcionando.
+- Servicio list_files:
+
+![screenshot01](./utils/screenshot01.png)
+
+- Servicio find_files:
+
+![screenshot02](./utils/screenshot02.png)
 
 ## 4. Descripción del ambiente de EJECUCIÓN (en producción) lenguaje de programación, librerias, paquetes, etc, con sus numeros de versiones.
 
@@ -71,8 +124,6 @@ pantallazos
 ### una mini guia de como un usuario utilizaría el software o la aplicación
 
 ### opcionalmente - si quiere mostrar resultados o pantallazos  -->
-
-## 5. otra información que considere relevante para esta actividad.
 
 ## Referencias:
 Algunos sitios que me fueron de ayuda fueron:
