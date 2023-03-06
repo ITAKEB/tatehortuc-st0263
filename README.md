@@ -1,13 +1,13 @@
-## ST0263, Topicos especiales en Telematica
+## ST0263, Tópicos especiales en Telemática
 ##
 ## Estudiante(s): Tomas Atehortua Ceferino, tatehortuc@eafit.edu.co
 ##
 ## Profesor: Edwin Nelson Montoya Munera, emontoya@eafit.edu.co
 ##
 
-## MoM and gRPC challenge 02
+## Challenge 02, MoM and gRPC
 ##
-## 1. Breve descripción de la actividad
+## 1. Breve descripción de la actividad.
 Realizar el diseño e implementación de mínimo 2 microservicios básicos que ofrecen ambos un servicio al API Gateway y que se deben comunicar por un middleware RPC y por un middleware MOM. Cada uno de los microservicios debe soportar concurrencia, es decir, permitir a más de un proceso remoto comunicarse simultáneamente.
 
 Para la comunicación RPC se debe utilizar el middleware gRPC y para la comunicación MOM utilizará RabbitMQ o Apache Kafka.
@@ -22,25 +22,23 @@ Implementará al menos
     - Para probar las funcionalidades de cada uno de los procesos, se implementará un API Gateway que expondrá API REST en una tecnología y servidor tradicional de su preferencia (ej: NodeJS-express, Python-Flask).
     - Realice todas las adecuaciones o variantes que desee de acuerdo con sus intereses académicos o profesionales, o impleméntelo como dice el enunciado.
 
-### 1.1. Que aspectos cumplió o desarrolló de la actividad propuesta por el profesor (requerimientos funcionales y no funcionales)
+### 1.1. Qué aspectos cumplió o desarrolló de la actividad propuesta por el profesor (requerimientos funcionales y no funcionales).
 Todos los servicios fueron implementados. Un cliente puede consumir la API rest para buscar y listar archivos con la ayuda de nuestros servicos, el balanceador de carga funciona correctamente tanto para MOM y GRPC, dando estos respuesta en formato JSON siempre que se les hace request.
 
-### 1.2. Que aspectos NO cumplió o desarrolló de la actividad propuesta por el profesor (requerimientos funcionales y no funcionales)
-El archivo de configuracion si fue realizado, se hicieron pruebas en amazon aws EC2 corriendo el servicio. Mas sin embargo el script para hacer el Bootstrap cada que la aplicacion se quiere correr en una instancia no esta configurado por el momento. 
-
-## 2. información general de diseño de alto nivel, arquitectura, patrones, mejores prácticas utilizadas.
+## 2. Información general de diseño de alto nivel, arquitectura, patrones, mejores prácticas utilizadas.
 La arquitectura implentada es la siguiente:
 ![architecture](./utils/architecture.png)
 
-El servidor principal es una API REST con los servicios de list_files and find_files, este servidor balancea las peticiones a dos microservicios segun su middleware (MOM y GRPC). El balanceo se hizo mediande round-robin, es decir, una peticion ira al microservicio01 (MOM) y la siguiente al microservicio02 (GRPC) y asi sucesivamente.
+El servidor principal es una API REST con los servicios de list_files and find_files, este servidor balancea las peticiones a dos microservicios segun su middleware (MOM y GRPC). El balanceo se hizo mediante round-robin, es decir, una petición irá al microservicio01 (MOM) y la siguiente al microservicio02 (GRPC) y así sucesivamente.
 
-En cuanto a buenas practicas se realizaron las siguientes:
-- Separacion de depencias
+En cuanto a buenas prácticas se realizó:
+- Separación de dependencias
 - Nombres significativos
-- Evitar duplicacion
-- Codigo simple
+- Evitar duplicación
+- Código simple
 
-## 3. Descripción del ambiente de desarrollo y técnico: lenguaje de programación, librerias, paquetes, etc, con sus numeros de versiones.
+## 3. Descripción del ambiente de desarrollo y técnico.
+
 El ambiente utilizado fue python, por lo que, para la API rest se utilizo Flask y para el middleware MOM, rabbitMQ. 
 
 **Dependencias y versionamiento**
@@ -52,59 +50,44 @@ El ambiente utilizado fue python, por lo que, para la API rest se utilizo Flask 
 - flask: 2.2.3
 
 **Como se compila y ejecuta.**
-Se debe contar con python y rabbitmq instalado en la maquina. En caso de tenerlos, para el caso de `ubuntu` ejecutar lo siguiente: 
 
-Para rabbitmq:
+Para ejecutar el servicio, seguir los siguientes pasos:
+
+Se debe contar con python y rabbitmq instalado en la máquina.
+
+
+1. Instalación y activación de recursos necesarios:
+
+Se debe contar con python y rabbitmq instalado en la máquina. Para el caso de una nueva instancia se debe ejecutar el siguiente comando, el cual descargara y activara lo necesario para nuestro servicio.
 ```
-sudo apt-get install rabbitmq-server
-sudo system ctl start rabbitmq-server
-sudo system ctl enable rabbitmq-server
-```
-Para python:
-```
-sudo apt update
-sudo apt install -y python3-pip
+./firs-time-install
 ```
 
-Para ejecuar el servicio, como no se han desarrollado scripts de ejecucion, seguir los siguientes pasos:
+2. Ejecutar los servicios. 
 
-1. Creacion y activacion de ambiente para python:
+Para iniciar los servicios nos ubicamos en el directorio raíz del repositorio y ejecutaremos el siguiente script bash:
 ```
-python3 -m venv env
-source env/bin/activate
+./bootstrap.sh
 ```
-2. Instalar dependencias:
-```
-pip3 install -r requirements.txt
-```
-3. Ejecutar los servicios. 
+Esto pondrá a ejecutar nuestros 2 microservicios y nuestra API gateway en funcionamiento.
 
-Iniciaremos con el MOM. Para ellos vamos a `rabbitmq/FileUService` y encendemos el microservicio con el comando:
-```
-python3 main.py
-```
-y lo dejamos corriendo.
+**Configuración**
 
-Para el servidor de GRPC es similar. Para ello vamos a `grpc/FileUService` y encendemos el microservicio con el comando:
-```
-python3 main.py
-```
-tambien lo dejamos encendido.
-
-Finalmente para encender la API geteway, en la ruta `apigateway/` ejecutamos:
-```
-python3 app.py
-```
-Y ya tendriamos nuestro servidor corriendo con sus respectivos microservicios listos para ser consumidos.
-
-**Descripción y como se configuracion**
- los parámetros del proyecto (ej: ip, puertos, conexión a bases de datos, variables de ambiente, parámetros, etc)
+La configuración correspondiente a los diferentes puertos y dirección host, tanto de los microservicios como la API, se puede encontrar en el archivo `config.json` en el directorio raíz de este repositorio.
 
 **Detalles de la organización del código por carpetas**
- o descripción de algún archivo. (ESTRUCTURA DE DIRECTORIOS Y ARCHIVOS IMPORTANTE DEL PROYECTO, comando 'tree' de linux)
+
+Para separar responsabilidades se decidió hacer tres carpetas (apigateway, grpc, y rabbitmq). A continuación se explicará que se encuentra en cada una de estas.
+
+En la carpeta `./apigateway` se puede encontrar todo lo que le corresponde al servidor principal, es decir, la API rest.
+
+En la carpeta `./grpc/FileUService` podemos encontrar lo correspondiente al microservicio02 (GRPC).
+
+Para finalizar, en el directorio `./rabbitmq/FileUService` se encuentra el microservicio01 (MOM)
  
 **Resultados**
-A continuacion podemos observar los dos servicios funcionando.
+
+A continuación podemos observar los dos servicios funcionando.
 - Servicio list_files:
 
 ![screenshot01](./utils/screenshot01.png)
@@ -113,17 +96,17 @@ A continuacion podemos observar los dos servicios funcionando.
 
 ![screenshot02](./utils/screenshot02.png)
 
-## 4. Descripción del ambiente de EJECUCIÓN (en producción) lenguaje de programación, librerias, paquetes, etc, con sus numeros de versiones.
+## 4. Descripción del ambiente de EJECUCIÓN (en producción).
 
-<!-- ## IP o nombres de dominio en nube o en la máquina servidor.
+El despliegue se hizo a con la ayuda de AWS, para ello se creó una máquina EC2 con ubuntu instalado. Al crearla, esta fue configurada con los puertos necesarios para el correcto funcionamiento del servicio ("8080","5672" y "50051"), además de los puertos http y https para la comunicación a través de la web.
 
-### descripción y como se configura los parámetros del proyecto (ej: ip, puertos, conexión a bases de datos, variables de ambiente, parámetros, etc)
+Para ponerla en funcionamiento se clonó este repositorio en la instancia creada, se ejecutaron los scripts de configuracion `first-time-install.sh` `bootstrap.sh` y estaba lista para su consumo.
 
-### como se lanza el servidor.
+Ya con la aplicación funcionando fácilmente podemos acceder a la dirección pública de nuestra EC2 y consumir nuestros dos microservicios a través de esta.
 
-### una mini guia de como un usuario utilizaría el software o la aplicación
-
-### opcionalmente - si quiere mostrar resultados o pantallazos  -->
+El servidor está en la capacidad de responder a las dos siguientes urls
+- `{public_ip_ec2}/files/list_files` para listar los archivos
+- `{public_ip_ec2}/files/find_file/{name_file}` para buscar archivos
 
 ## Referencias:
 Algunos sitios que me fueron de ayuda fueron:
