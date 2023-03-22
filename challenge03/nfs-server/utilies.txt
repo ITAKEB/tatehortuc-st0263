@@ -1,0 +1,13 @@
+nfs-client
+	- sudo apt install nfs-common
+	- sudo mkdir /mnt/wordpress
+	- sudo mount <ip-server>/var/nfs/general /mnt/wordpress
+	- docker-compose up
+
+nfs-server
+	- sudo apt install nfs-kernel-server
+	- sudo mkdir /var/nfs/general
+	- sudo chown nobody:nogroup /var/nfs/general
+	- sudo nano /etc/exports
+	- /var/nfs/general    10.128.0.0/16(rw,sync,no_root_squash,no_subtree_check)
+	- sudo systemctl restart nfs-kernel-server
