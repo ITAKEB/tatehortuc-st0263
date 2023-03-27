@@ -1,4 +1,4 @@
-## info de la materia: ST0263, Topicos especiales en Telematica
+## ST0263, Topicos especiales en Telematica
 ##
 ## Estudiante(s): Tomas Atehortua Ceferino, tatehortuc@eafit.edu.co
 ##
@@ -21,10 +21,12 @@ Internet con múltiples instancias de procesamiento.
 - Tener 2 instancias de procesamiento wordpress detrás del balanceador de cargas.
 - Tener 1 instancia de bases de datos mysql
 - Tener 1 instancia de archivos distribuidos en NFS
+- Aplicación wordpress dockerizada monolítica en varios nodos que mejore la disponibilidad de
+esta aplicación.
 
 ### 1.2. Que aspectos NO cumplió o desarrolló de la actividad propuesta por el profesor (requerimientos funcionales y no funcionales)
 No se cumplió con:
-- La página no renderiza el JavaScript y el CSS a través del servidor nginx con HTTPS
+- La página no renderiza el JavaScript a través del servidor nginx con HTTPS
 
 ## 2. Información general de diseño de alto nivel, arquitectura, patrones, mejores prácticas utilizadas.
 Arquitectura: 
@@ -34,7 +36,9 @@ Arquitectura:
 ## 3. Descripción del ambiente de desarrollo y técnico: lenguaje de programación, librerias, paquetes, etc, con sus numeros de versiones.
 
 ### Como se compila y ejecuta.
-    Cada instancia tiene su docker-compose correspondiente, para ejecutarlo solo se debe lanzar el contonedor de docker con el correspondiente docker-compose
+
+Cada instancia tiene su docker-compose correspondiente, para ejecutarlo solo se debe lanzar el contonedor de docker con el correspondiente docker-compose
+
 ### Detalles del desarrollo.
 
 ### Detalles técnicos
@@ -50,7 +54,7 @@ El despliegue se realizó a través de GCP, para lanzarlo, se debe ir al proyect
 ### Opcionalmente - si quiere mostrar resultados o pantallazos 
 Resultados adquiridos:
 
-![architecture](./utils/architecture.png)
+![architecture](./utils/results.png)
 
 ## 5. otra información que considere relevante para esta actividad.
 
@@ -60,4 +64,4 @@ Resultados adquiridos:
 ### https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-22-04
 ### https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nfs-mount-on-ubuntu-20-04-es
 
-#### versión README.md -> 1.0 (2023-agosto)
+#### (2023)
