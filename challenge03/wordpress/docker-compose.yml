@@ -5,6 +5,7 @@ services:
     image: wordpress
     ports:
       - 80:80      
+      - 443:433
     restart: always
     environment:
       WORDPRESS_DB_HOST: 10.128.0.6
