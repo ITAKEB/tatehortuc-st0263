@@ -3,10 +3,9 @@ syntax = "proto3";
 service Crud {
     rpc CreateQueue (CreateRequest) returns (CreateReply);
     rpc ReadQueue (ReadRequest) returns (ReadReply);
-    rpc UpdateQueue (UpdateRequest) returns (UpdateReply);
     rpc DeleteQueue (DeleteRequest) returns (DeleteReply);
     rpc PutQueue (PutRequest) returns (PutReply);
-    rpc GetQueue (GetRequest) returns (GetReply);
+    rpc GetQueues (GetRequest) returns (GetReply);
 }
 
 //Crud
@@ -23,14 +22,6 @@ message ReadRequest {
 }
 
 message ReadReply {
-    string message = 1;
-}
-
-message UpdateRequest {
-   string id = 1;
-}
-
-message UpdateReply {
     string message = 1;
 }
 
@@ -53,9 +44,7 @@ message PutReply {
     string message = 1;
 }
 
-message GetRequest {
-   string id = 1;
-}
+message GetRequest {}
 
 message GetReply {
     string message = 1;
