@@ -8,7 +8,6 @@ queues = {}
 
 class CrudServicer(records_pb2_grpc.CrudServicer):
     def CreateQueue(self, request, context):
-        print(request)
         queues[request.id] = []
         queues[request.id].append("default")
         msg = "sucess"
@@ -17,7 +16,6 @@ class CrudServicer(records_pb2_grpc.CrudServicer):
         return response
     
     def ReadQueue(self, request, context):
-        print(request)
         msg = ""
         try:
             msg = queues[request.id].pop(0)
@@ -29,10 +27,34 @@ class CrudServicer(records_pb2_grpc.CrudServicer):
         return response
     
     def PutQueue(self, request, context):
-        print(request)
         msg = ""
         try:
             queues[request.id].append(request.content)
+            msg = "sucess"
+        except:
+            msg = "Queue not found"
+
+        response = records_pb2.PutReply(message=msg)
+
+        return response
+
+
+    def GetQueues(self, request, context):
+        current_queues = list(queues.keys())
+        msg = ""
+        try:
+            msg = f"{current_queues}"
+        except:
+            msg = "Queue not found"
+
+        response = records_pb2.PutReply(message=msg)
+
+        return response
+    
+    def DeleteQueue(self, request, context):
+        msg = ""
+        try:
+            del queues[request.id]
             msg = "sucess"
         except:
             msg = "Queue not found"

@@ -24,11 +24,6 @@ class CrudStub(object):
                 request_serializer=records__pb2.ReadRequest.SerializeToString,
                 response_deserializer=records__pb2.ReadReply.FromString,
                 )
-        self.UpdateQueue = channel.unary_unary(
-                '/Crud/UpdateQueue',
-                request_serializer=records__pb2.UpdateRequest.SerializeToString,
-                response_deserializer=records__pb2.UpdateReply.FromString,
-                )
         self.DeleteQueue = channel.unary_unary(
                 '/Crud/DeleteQueue',
                 request_serializer=records__pb2.DeleteRequest.SerializeToString,
@@ -39,8 +34,8 @@ class CrudStub(object):
                 request_serializer=records__pb2.PutRequest.SerializeToString,
                 response_deserializer=records__pb2.PutReply.FromString,
                 )
-        self.GetQueue = channel.unary_unary(
-                '/Crud/GetQueue',
+        self.GetQueues = channel.unary_unary(
+                '/Crud/GetQueues',
                 request_serializer=records__pb2.GetRequest.SerializeToString,
                 response_deserializer=records__pb2.GetReply.FromString,
                 )
@@ -61,12 +56,6 @@ class CrudServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def UpdateQueue(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
     def DeleteQueue(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -79,7 +68,7 @@ class CrudServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetQueue(self, request, context):
+    def GetQueues(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -98,11 +87,6 @@ def add_CrudServicer_to_server(servicer, server):
                     request_deserializer=records__pb2.ReadRequest.FromString,
                     response_serializer=records__pb2.ReadReply.SerializeToString,
             ),
-            'UpdateQueue': grpc.unary_unary_rpc_method_handler(
-                    servicer.UpdateQueue,
-                    request_deserializer=records__pb2.UpdateRequest.FromString,
-                    response_serializer=records__pb2.UpdateReply.SerializeToString,
-            ),
             'DeleteQueue': grpc.unary_unary_rpc_method_handler(
                     servicer.DeleteQueue,
                     request_deserializer=records__pb2.DeleteRequest.FromString,
@@ -113,8 +97,8 @@ def add_CrudServicer_to_server(servicer, server):
                     request_deserializer=records__pb2.PutRequest.FromString,
                     response_serializer=records__pb2.PutReply.SerializeToString,
             ),
-            'GetQueue': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetQueue,
+            'GetQueues': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetQueues,
                     request_deserializer=records__pb2.GetRequest.FromString,
                     response_serializer=records__pb2.GetReply.SerializeToString,
             ),
@@ -163,23 +147,6 @@ class Crud(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def UpdateQueue(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Crud/UpdateQueue',
-            records__pb2.UpdateRequest.SerializeToString,
-            records__pb2.UpdateReply.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
     def DeleteQueue(request,
             target,
             options=(),
@@ -214,7 +181,7 @@ class Crud(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def GetQueue(request,
+    def GetQueues(request,
             target,
             options=(),
             channel_credentials=None,
@@ -224,7 +191,7 @@ class Crud(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Crud/GetQueue',
+        return grpc.experimental.unary_unary(request, target, '/Crud/GetQueues',
             records__pb2.GetRequest.SerializeToString,
             records__pb2.GetReply.FromString,
             options, channel_credentials,

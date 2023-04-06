@@ -32,3 +32,22 @@ def put_queue(id_queue, content):
         print(f'GRPC received: {result.message}')
 
     return result.message
+
+def get_queues():
+    with grpc.insecure_channel("127.0.0.1:50051") as channel:
+        stub = records_pb2_grpc.CrudStub(channel)
+        request = records_pb2.GetRequest()
+        result = stub.GetQueues(request)
+        print(f'GRPC received: {result.message}')
+
+    return result.message
+
+
+def delete_queue(id_queue):
+    with grpc.insecure_channel("127.0.0.1:50051") as channel:
+        stub = records_pb2_grpc.CrudStub(channel)
+        request = records_pb2.DeleteRequest(id=id_queue)
+        result = stub.DeleteQueue(request)
+        print(f'GRPC received: {result.message}')
+
+    return result.message

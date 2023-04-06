@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\rrecords.proto\"\x1b\n\rCreateRequest\x12\n\n\x02id\x18\x01 \x01(\t\"\x1e\n\x0b\x43reateReply\x12\x0f\n\x07message\x18\x01 \x01(\t\"\x19\n\x0bReadRequest\x12\n\n\x02id\x18\x01 \x01(\t\"\x1c\n\tReadReply\x12\x0f\n\x07message\x18\x01 \x01(\t\"\x1b\n\rUpdateRequest\x12\n\n\x02id\x18\x01 \x01(\t\"\x1e\n\x0bUpdateReply\x12\x0f\n\x07message\x18\x01 \x01(\t\"\x1b\n\rDeleteRequest\x12\n\n\x02id\x18\x01 \x01(\t\"\x1e\n\x0b\x44\x65leteReply\x12\x0f\n\x07message\x18\x01 \x01(\t\")\n\nPutRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\t\"\x1b\n\x08PutReply\x12\x0f\n\x07message\x18\x01 \x01(\t\"\x18\n\nGetRequest\x12\n\n\x02id\x18\x01 \x01(\t\"\x1b\n\x08GetReply\x12\x0f\n\x07message\x18\x01 \x01(\t2\xfc\x01\n\x04\x43rud\x12+\n\x0b\x43reateQueue\x12\x0e.CreateRequest\x1a\x0c.CreateReply\x12%\n\tReadQueue\x12\x0c.ReadRequest\x1a\n.ReadReply\x12+\n\x0bUpdateQueue\x12\x0e.UpdateRequest\x1a\x0c.UpdateReply\x12+\n\x0b\x44\x65leteQueue\x12\x0e.DeleteRequest\x1a\x0c.DeleteReply\x12\"\n\x08PutQueue\x12\x0b.PutRequest\x1a\t.PutReply\x12\"\n\x08GetQueue\x12\x0b.GetRequest\x1a\t.GetReplyb\x06proto3'
+  serialized_pb=b'\n\rrecords.proto\"\x1b\n\rCreateRequest\x12\n\n\x02id\x18\x01 \x01(\t\"\x1e\n\x0b\x43reateReply\x12\x0f\n\x07message\x18\x01 \x01(\t\"\x19\n\x0bReadRequest\x12\n\n\x02id\x18\x01 \x01(\t\"\x1c\n\tReadReply\x12\x0f\n\x07message\x18\x01 \x01(\t\"\x1b\n\rDeleteRequest\x12\n\n\x02id\x18\x01 \x01(\t\"\x1e\n\x0b\x44\x65leteReply\x12\x0f\n\x07message\x18\x01 \x01(\t\")\n\nPutRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\t\"\x1b\n\x08PutReply\x12\x0f\n\x07message\x18\x01 \x01(\t\"\x0c\n\nGetRequest\"\x1b\n\x08GetReply\x12\x0f\n\x07message\x18\x01 \x01(\t2\xd0\x01\n\x04\x43rud\x12+\n\x0b\x43reateQueue\x12\x0e.CreateRequest\x1a\x0c.CreateReply\x12%\n\tReadQueue\x12\x0c.ReadRequest\x1a\n.ReadReply\x12+\n\x0b\x44\x65leteQueue\x12\x0e.DeleteRequest\x1a\x0c.DeleteReply\x12\"\n\x08PutQueue\x12\x0b.PutRequest\x1a\t.PutReply\x12#\n\tGetQueues\x12\x0b.GetRequest\x1a\t.GetReplyb\x06proto3'
 )
 
 
@@ -153,70 +153,6 @@ _READREPLY = _descriptor.Descriptor(
 )
 
 
-_UPDATEREQUEST = _descriptor.Descriptor(
-  name='UpdateRequest',
-  full_name='UpdateRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='id', full_name='UpdateRequest.id', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=135,
-  serialized_end=162,
-)
-
-
-_UPDATEREPLY = _descriptor.Descriptor(
-  name='UpdateReply',
-  full_name='UpdateReply',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='message', full_name='UpdateReply.message', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=164,
-  serialized_end=194,
-)
-
-
 _DELETEREQUEST = _descriptor.Descriptor(
   name='DeleteRequest',
   full_name='DeleteRequest',
@@ -244,8 +180,8 @@ _DELETEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=196,
-  serialized_end=223,
+  serialized_start=135,
+  serialized_end=162,
 )
 
 
@@ -276,8 +212,8 @@ _DELETEREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=225,
-  serialized_end=255,
+  serialized_start=164,
+  serialized_end=194,
 )
 
 
@@ -315,8 +251,8 @@ _PUTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=257,
-  serialized_end=298,
+  serialized_start=196,
+  serialized_end=237,
 )
 
 
@@ -347,8 +283,8 @@ _PUTREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=300,
-  serialized_end=327,
+  serialized_start=239,
+  serialized_end=266,
 )
 
 
@@ -360,13 +296,6 @@ _GETREQUEST = _descriptor.Descriptor(
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
-    _descriptor.FieldDescriptor(
-      name='id', full_name='GetRequest.id', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -379,8 +308,8 @@ _GETREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=329,
-  serialized_end=353,
+  serialized_start=268,
+  serialized_end=280,
 )
 
 
@@ -411,16 +340,14 @@ _GETREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=355,
-  serialized_end=382,
+  serialized_start=282,
+  serialized_end=309,
 )
 
 DESCRIPTOR.message_types_by_name['CreateRequest'] = _CREATEREQUEST
 DESCRIPTOR.message_types_by_name['CreateReply'] = _CREATEREPLY
 DESCRIPTOR.message_types_by_name['ReadRequest'] = _READREQUEST
 DESCRIPTOR.message_types_by_name['ReadReply'] = _READREPLY
-DESCRIPTOR.message_types_by_name['UpdateRequest'] = _UPDATEREQUEST
-DESCRIPTOR.message_types_by_name['UpdateReply'] = _UPDATEREPLY
 DESCRIPTOR.message_types_by_name['DeleteRequest'] = _DELETEREQUEST
 DESCRIPTOR.message_types_by_name['DeleteReply'] = _DELETEREPLY
 DESCRIPTOR.message_types_by_name['PutRequest'] = _PUTREQUEST
@@ -456,20 +383,6 @@ ReadReply = _reflection.GeneratedProtocolMessageType('ReadReply', (_message.Mess
   # @@protoc_insertion_point(class_scope:ReadReply)
   })
 _sym_db.RegisterMessage(ReadReply)
-
-UpdateRequest = _reflection.GeneratedProtocolMessageType('UpdateRequest', (_message.Message,), {
-  'DESCRIPTOR' : _UPDATEREQUEST,
-  '__module__' : 'records_pb2'
-  # @@protoc_insertion_point(class_scope:UpdateRequest)
-  })
-_sym_db.RegisterMessage(UpdateRequest)
-
-UpdateReply = _reflection.GeneratedProtocolMessageType('UpdateReply', (_message.Message,), {
-  'DESCRIPTOR' : _UPDATEREPLY,
-  '__module__' : 'records_pb2'
-  # @@protoc_insertion_point(class_scope:UpdateReply)
-  })
-_sym_db.RegisterMessage(UpdateReply)
 
 DeleteRequest = _reflection.GeneratedProtocolMessageType('DeleteRequest', (_message.Message,), {
   'DESCRIPTOR' : _DELETEREQUEST,
@@ -522,8 +435,8 @@ _CRUD = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=385,
-  serialized_end=637,
+  serialized_start=312,
+  serialized_end=520,
   methods=[
   _descriptor.MethodDescriptor(
     name='CreateQueue',
@@ -546,19 +459,9 @@ _CRUD = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='UpdateQueue',
-    full_name='Crud.UpdateQueue',
-    index=2,
-    containing_service=None,
-    input_type=_UPDATEREQUEST,
-    output_type=_UPDATEREPLY,
-    serialized_options=None,
-    create_key=_descriptor._internal_create_key,
-  ),
-  _descriptor.MethodDescriptor(
     name='DeleteQueue',
     full_name='Crud.DeleteQueue',
-    index=3,
+    index=2,
     containing_service=None,
     input_type=_DELETEREQUEST,
     output_type=_DELETEREPLY,
@@ -568,7 +471,7 @@ _CRUD = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='PutQueue',
     full_name='Crud.PutQueue',
-    index=4,
+    index=3,
     containing_service=None,
     input_type=_PUTREQUEST,
     output_type=_PUTREPLY,
@@ -576,9 +479,9 @@ _CRUD = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='GetQueue',
-    full_name='Crud.GetQueue',
-    index=5,
+    name='GetQueues',
+    full_name='Crud.GetQueues',
+    index=4,
     containing_service=None,
     input_type=_GETREQUEST,
     output_type=_GETREPLY,
