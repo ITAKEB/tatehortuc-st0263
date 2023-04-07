@@ -8,6 +8,7 @@ import records_pb2_grpc
 
 queues = {}
 
+
 class CrudServicer(records_pb2_grpc.CrudServicer):
     def CreateQueue(self, request, context):
         queues[request.id] = []
@@ -16,7 +17,7 @@ class CrudServicer(records_pb2_grpc.CrudServicer):
         response = records_pb2.CreateReply(message=msg)
 
         return response
-    
+
     def ReadQueue(self, request, context):
         msg = ""
         print('read')
@@ -29,7 +30,7 @@ class CrudServicer(records_pb2_grpc.CrudServicer):
         response = records_pb2.CreateReply(message=msg)
 
         return response
-    
+
     def PutQueue(self, request, context):
         msg = ""
         print('put')
@@ -44,7 +45,6 @@ class CrudServicer(records_pb2_grpc.CrudServicer):
 
         return response
 
-
     def GetQueues(self, request, context):
         current_queues = list(queues.keys())
         msg = ""
@@ -56,7 +56,7 @@ class CrudServicer(records_pb2_grpc.CrudServicer):
         response = records_pb2.PutReply(message=msg)
 
         return response
-    
+
     def DeleteQueue(self, request, context):
         queue_id = request.id
         user = request.user
@@ -65,10 +65,10 @@ class CrudServicer(records_pb2_grpc.CrudServicer):
         try:
 
             user_validator = get_user(user, password)
-            
+
             if (user_validator):
                 print(user_validator)
-                #del queues[request.id]
+                # del queues[request.id]
             else:
                 msg = "Auth error"
         except Exception as e:
@@ -80,32 +80,33 @@ class CrudServicer(records_pb2_grpc.CrudServicer):
 
 
 class UserServicer(records_pb2_grpc.UserServicer):
-        def CreateUser(self, request, context):
-            username = request.user
-            password = request.password
-            uid = str(uuid.uuid4())
+    def CreateUser(self, request, context):
+        username = request.user
+        password = request.password
+        uid = str(uuid.uuid4())
 
-            msg = "sucess"
+        msg = "sucess"
 
-            try:
-                save_user(uid,username,password)
-            except Exception as e:
-                msg = "error saving user, duplicated username"
+        try:
+            save_user(uid, username, password)
+        except Exception as e:
+            msg = "error saving user, duplicated username"
 
-            response = records_pb2.CreateUserReply(message=msg)
-            return response
+        response = records_pb2.CreateUserReply(message=msg)
+        return response
+
 
 def main():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     records_pb2_grpc.add_CrudServicer_to_server(
         CrudServicer(), server)
-    
+
     records_pb2_grpc.add_UserServicer_to_server(
         UserServicer(), server)
-    
+
     server.add_insecure_port("127.0.0.1:50051")
     server.start()
-    
+
     print('GRPC persistor server working')
     server.wait_for_termination()
 

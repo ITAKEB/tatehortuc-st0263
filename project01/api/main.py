@@ -15,6 +15,7 @@ def register_user():
 
     return response
 
+
 @app.route("/create-queue/<string:id_queue>", methods=["GET"])
 def create_queue(id_queue):
     response = grpc_services.create_queue(id_queue)
@@ -48,7 +49,8 @@ def list_queues():
 @app.route("/delete-queue/<string:id_queue>", methods=["DELETE"])
 def delete_queue(id_queue):
     auth = request.authorization
-    response = grpc_services.delete_queue(id_queue, auth.username, auth.password)
+    response = grpc_services.delete_queue(
+        id_queue, auth.username, auth.password)
 
     return response
 
