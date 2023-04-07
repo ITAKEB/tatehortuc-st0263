@@ -196,3 +196,64 @@ class Crud(object):
             records__pb2.GetReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+
+class UserStub(object):
+    """Missing associated documentation comment in .proto file."""
+
+    def __init__(self, channel):
+        """Constructor.
+
+        Args:
+            channel: A grpc.Channel.
+        """
+        self.CreateUser = channel.unary_unary(
+                '/User/CreateUser',
+                request_serializer=records__pb2.CreateUserRequest.SerializeToString,
+                response_deserializer=records__pb2.CreateUserReply.FromString,
+                )
+
+
+class UserServicer(object):
+    """Missing associated documentation comment in .proto file."""
+
+    def CreateUser(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+
+def add_UserServicer_to_server(servicer, server):
+    rpc_method_handlers = {
+            'CreateUser': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateUser,
+                    request_deserializer=records__pb2.CreateUserRequest.FromString,
+                    response_serializer=records__pb2.CreateUserReply.SerializeToString,
+            ),
+    }
+    generic_handler = grpc.method_handlers_generic_handler(
+            'User', rpc_method_handlers)
+    server.add_generic_rpc_handlers((generic_handler,))
+
+
+ # This class is part of an EXPERIMENTAL API.
+class User(object):
+    """Missing associated documentation comment in .proto file."""
+
+    @staticmethod
+    def CreateUser(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/User/CreateUser',
+            records__pb2.CreateUserRequest.SerializeToString,
+            records__pb2.CreateUserReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
