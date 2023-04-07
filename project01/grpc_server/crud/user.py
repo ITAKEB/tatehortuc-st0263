@@ -38,7 +38,9 @@ def get_user(username, password):
         
     for row in select:
         if (row):
-            return row
+            #extract uuid from sql tuple response
+            uuid = row[0]
+            return uuid
 
     return None
 

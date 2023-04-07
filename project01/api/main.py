@@ -8,11 +8,18 @@ app = Flask(__name__)
 mode_mutex = Lock()
 
 
+@app.route("/register-user", methods=["POST"])
+def register_user():
+    auth = request.authorization
+    response = grpc_services.create_user(auth.username, auth.password)
+
+    return response
+
 @app.route("/create-queue/<string:id_queue>", methods=["GET"])
 def create_queue(id_queue):
-    grpc_services.create_queue(id_queue)
+    response = grpc_services.create_queue(id_queue)
 
-    return id_queue
+    return response
 
 
 @app.route("/read-queue/<string:id_queue>", methods=["GET"])
@@ -38,9 +45,10 @@ def list_queues():
     return response
 
 
-@app.route("/delete-queue/<string:id_queue>", methods=["GET"])
+@app.route("/delete-queue/<string:id_queue>", methods=["DELETE"])
 def delete_queue(id_queue):
-    response = grpc_services.delete_queue(id_queue)
+    auth = request.authorization
+    response = grpc_services.delete_queue(id_queue, auth.username, auth.password)
 
     return response
 
