@@ -16,9 +16,11 @@ def register_user():
     return response
 
 
-@app.route("/create-queue/<string:id_queue>", methods=["GET"])
+@app.route("/create-queue/<string:id_queue>", methods=["POST"])
 def create_queue(id_queue):
-    response = grpc_services.create_queue(id_queue)
+    auth = request.authorization
+    response = grpc_services.create_queue(
+        id_queue, auth.username, auth.password)
 
     return response
 
@@ -34,9 +36,9 @@ def read_queue(id_queue):
 def put_queue(id_queue):
     print(request.data)
     content = request.data.decode("utf-8")
-    grpc_services.put_queue(id_queue, content)
+    response = grpc_services.put_queue(id_queue, content)
 
-    return id_queue
+    return response
 
 
 @app.route("/list-queues/", methods=["GET"])

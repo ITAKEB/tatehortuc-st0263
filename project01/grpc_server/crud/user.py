@@ -5,10 +5,6 @@ from sqlalchemy import Column, String, DateTime, select
 from sqlalchemy.dialects.postgresql import UUID
 
 
-session = Session()
-Base.metadata.create_all(engine)
-
-
 class User(Base):
     __tablename__ = 'users'
 
@@ -21,16 +17,21 @@ class User(Base):
         return self.username
 
 
+Base.metadata.create_all(engine)
+
 # insert into users (id, username, password) values ($id, $username, $password);
 def save_user(uuid, username, password):
+    session = Session()
     new_user = User(id=uuid, username=username, password=password)
     session.add(new_user)
 
     session.commit()
+    session.close()
 
 
-# select * from users where username = $username and password = $password;
+# select id from users where username = $username and password = $password;
 def get_user(username, password):
+    session = Session()
     select = session.query(User.id).filter(
         User.username == username
     ).filter(
@@ -43,4 +44,5 @@ def get_user(username, password):
             uuid = row[0]
             return uuid
 
+    session.close()
     return None

@@ -18,10 +18,11 @@ def create_user(username, password):
 
 
 # Queues
-def create_queue(id_queue):
+def create_queue(id_queue, user, password):
     with grpc.insecure_channel("127.0.0.1:50051") as channel:
         stub = records_pb2_grpc.CrudStub(channel)
-        request = records_pb2.CreateRequest(id=id_queue)
+        request = records_pb2.CreateRequest(
+            id=id_queue, user=user, password=password)
         result = stub.CreateQueue(request)
         print(f'GRPC received: {result.message}')
 

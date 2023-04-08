@@ -2,18 +2,41 @@ import grpc
 from concurrent import futures
 import json
 import uuid
+
+from queues import Queue
 from crud.user import save_user, get_user
 import records_pb2
 import records_pb2_grpc
 
-queues = {}
+
+local_queues = {}
 
 
 class CrudServicer(records_pb2_grpc.CrudServicer):
     def CreateQueue(self, request, context):
-        queues[request.id] = []
-        queues[request.id].append("default")
-        msg = "sucess"
+        queue_id = request.id
+        user = request.user
+        password = request.password
+
+        def save_new_queue():
+            user_id = get_user(user, password)
+
+            if (user_id == None):
+                return "User not found"
+
+            try:
+                local_queues[queue_id]
+                return "Queue already exists"
+            except Exception as e:
+                print(e)
+
+            new_queue = Queue(user_id, queue_id)
+            local_queues[queue_id] = new_queue
+
+            return "sucess"
+
+        msg = save_new_queue()
+
         response = records_pb2.CreateReply(message=msg)
 
         return response
@@ -22,9 +45,9 @@ class CrudServicer(records_pb2_grpc.CrudServicer):
         msg = ""
         print('read')
         try:
-            msg = queues[request.id].pop(0)
-            print(queues)
-        except:
+            msg = local_queues[request.id].queue_data.pop(0)
+        except Exception as e:
+            print(e)
             msg = "Queue not found or empty"
 
         response = records_pb2.CreateReply(message=msg)
@@ -33,12 +56,12 @@ class CrudServicer(records_pb2_grpc.CrudServicer):
 
     def PutQueue(self, request, context):
         msg = ""
-        print('put')
         try:
-            queues[request.id].append(request.content)
-            print(queues)
+            local_queues[request.id].queue_data.append(request.content)
+            print(local_queues)
             msg = "sucess"
-        except:
+        except Exception as e:
+            print(e)
             msg = "Queue not found"
 
         response = records_pb2.PutReply(message=msg)
@@ -46,11 +69,12 @@ class CrudServicer(records_pb2_grpc.CrudServicer):
         return response
 
     def GetQueues(self, request, context):
-        current_queues = list(queues.keys())
+        current_queues = list(local_queues.keys())
         msg = ""
         try:
             msg = f"{current_queues}"
-        except:
+        except Exception as e:
+            print(e)
             msg = "Queue not found"
 
         response = records_pb2.PutReply(message=msg)
@@ -61,18 +85,26 @@ class CrudServicer(records_pb2_grpc.CrudServicer):
         queue_id = request.id
         user = request.user
         password = request.password
-        msg = "sucess"
-        try:
 
-            user_validator = get_user(user, password)
+        def delete_queue():
+            user_id = get_user(user, password)
 
-            if (user_validator):
-                print(user_validator)
-                # del queues[request.id]
-            else:
-                msg = "Auth error"
-        except Exception as e:
-            msg = "Queue not found"
+            if (user_id == None):
+                return "User not found"
+
+            try:
+                queue = local_queues[queue_id]
+            except Exception as e:
+                print(e)
+                return "Queue not found"
+
+            if (queue.user_id == user_id):
+                del local_queues[request.id]
+                return "sucess"
+
+            return "Unauthorizathe user"
+
+        msg = delete_queue()
 
         response = records_pb2.DeleteReply(message=msg)
 
@@ -90,7 +122,8 @@ class UserServicer(records_pb2_grpc.UserServicer):
         try:
             save_user(uid, username, password)
         except Exception as e:
-            msg = "error saving user, duplicated username"
+            print(e)
+            msg = "error saving user, username already exists"
 
         response = records_pb2.CreateUserReply(message=msg)
         return response
