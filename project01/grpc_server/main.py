@@ -30,10 +30,10 @@ class CrudServicer(records_pb2_grpc.CrudServicer):
             except Exception as e:
                 print(e)
 
-            new_queue = Queue(user_id, queue_id)
-            local_queues[queue_id] = new_queue
+                new_queue = Queue(user_id, queue_id)
+                local_queues[queue_id] = new_queue
 
-            return "sucess"
+                return "sucess"
 
         msg = save_new_queue()
 
@@ -102,7 +102,7 @@ class CrudServicer(records_pb2_grpc.CrudServicer):
                 del local_queues[request.id]
                 return "sucess"
 
-            return "Unauthorizathe user"
+            return "Unauthorizated user"
 
         msg = delete_queue()
 
