@@ -1,8 +1,8 @@
 # 1. 
-![cluster created](./assets/ScreenshotCluster03.JPG "cluster creation")
+![cluster connected](./assets/ScreenshotCluster03.JPG "cluster conecction")
 
 # 2. 
-![starting cluster](./assets/ScreenshotCluster04.JPG "Cluster starting")
+![starting hue](./assets/ScreenshotCluster04.JPG "Hue starting")
 
 # 3. 
-![inside cluster](./assets/ScreenshotCluster05.JPG "Cluster terminal")
+![inside hue hdfs](./assets/ScreenshotCluster05.JPG "Hue hdfs view")
